@@ -1,0 +1,19 @@
+ms:170.79
+sum:1.07665e+06
+
+ Performance counter stats for '/home/ulli/daphne/bin/daphne ./scripts/matmul/matmul2048.daph':
+
+       259.894.496      cache-references                                                      
+        57.035.635      cache-misses                     #   21,95% of all cache refs         
+     9.205.835.981      cycles                                                                
+     7.064.160.228      instructions                     #    0,77  insn per cycle            
+       475.657.873      branches                                                              
+            40.775      faults                                                                
+                14      migrations                                                            
+
+       0,532198481 seconds time elapsed
+
+       2,068233000 seconds user
+       1,068120000 seconds sys
+
+

@@ -1,0 +1,37 @@
+/home/ulli/daphne/bin/daphne: Segmentation fault
+
+ Performance counter stats for '/home/ulli/daphne/bin/daphne --mlir-codegen --matmul-vec-size-bits=256 ./scripts/matmul/matmul2048.daph':
+
+        11.086.279      cache-references                                                      
+         4.365.657      cache-misses                     #   39,38% of all cache refs         
+     4.426.665.620      cycles                                                                
+     2.400.002.343      instructions                     #    0,54  insn per cycle            
+       360.784.648      branches                                                              
+            30.600      faults                                                                
+                12      migrations                                                            
+
+       0,443863499 seconds time elapsed
+
+       0,729484000 seconds user
+       0,661916000 seconds sys
+
+
+ms:22025.1
+sum:1.07665e+06
+
+ Performance counter stats for '/home/ulli/daphne/bin/daphne --mlir-codegen --matmul-vec-size-bits=256 --no-obj-ref-mgnt ./scripts/matmul/matmul2048.daph':
+
+     6.542.021.378      cache-references                                                      
+     4.632.791.973      cache-misses                     #   70,82% of all cache refs         
+    79.169.454.471      cycles                                                                
+    17.542.865.322      instructions                     #    0,22  insn per cycle            
+     2.531.791.786      branches                                                              
+            30.703      faults                                                                
+                15      migrations                                                            
+
+      22,367278027 seconds time elapsed
+
+      22,728494000 seconds user
+       0,683413000 seconds sys
+
+

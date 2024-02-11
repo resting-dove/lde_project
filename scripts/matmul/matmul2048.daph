@@ -1,0 +1,12 @@
+N = 2048;
+A = rand(N, N, -10.0, 10.0, 1.0, 42);
+B = rand(N, N, -10.0, 10.0, 1.0, 44);
+
+start = now();
+C = A@B;
+end = now();
+
+print("ms:", 0);
+print((end-start)/1000000.0);
+print("sum:", 0);
+print(sum(C)); // if don't want to print large matrices

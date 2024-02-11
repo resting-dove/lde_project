@@ -1,0 +1,28 @@
+WARNING: perf not found for kernel 6.2.0-39
+
+  You may need to install the following packages for this specific kernel:
+    linux-tools-6.2.0-39-generic
+    linux-cloud-tools-6.2.0-39-generic
+
+  You may also want to install one of the following packages to keep up to date:
+    linux-tools-generic
+    linux-cloud-tools-generic
+GEMM took 123804ms
+1.07665e+06
+
+ Performance counter stats for '/home/ulli/daphne//bin/daphne --mlir-codegen ./scripts/matmul/matmul2048.daph':
+
+    11.147.346.138      cache-references                                                      
+     8.240.330.597      cache-misses                     #   73,92% of all cache refs         
+   152.526.390.423      cycles                                                                
+    62.828.217.862      instructions                     #    0,41  insn per cycle            
+     8.998.700.625      branches                                                              
+            30.668      faults                                                                
+               111      migrations                                                            
+
+     124,158055574 seconds time elapsed
+
+     124,305540000 seconds user
+       0,735985000 seconds sys
+
+

@@ -1,0 +1,12 @@
+diff --git a/src/api/internal/daphne_internal.cpp b/src/api/internal/daphne_internal.cpp
+index 1dbf995e..f283eaed 100644
+--- a/src/api/internal/daphne_internal.cpp
++++ b/src/api/internal/daphne_internal.cpp
+@@ -570,6 +570,7 @@ int startDAPHNE(int argc, const char** argv, DaphneLibResult* daphneLibRes, int
+             spdlog::error("Execution error: Returning from signal {}", gSignalStatus);
+             return StatusCode::EXECUTION_ERROR;
+         }
++        engine->dumpToObjectFile("objdump.o");
+     }
+     catch (std::runtime_error& re) {
+         spdlog::error("Execution error: {}", re.what());

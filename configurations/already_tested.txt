@@ -1,0 +1,13 @@
+bond_first_vec256: --matmul-fixed-tile-sizes=4,8,256,64 --matmul-vec-size-bits=256 --no-obj-ref-mgnt
+bond_half_vec256: --matmul-fixed-tile-sizes=2,12,480,180 --matmul-vec-size-bits=256 --no-obj-ref-mgnt
+auto_tile:--matmul-tile
+naive:
+bond_tile: --matmul-fixed-tile-sizes=3,16,480,180
+bond_half: --matmul-fixed-tile-sizes=2,12,480,180
+bond_first: --matmul-fixed-tile-sizes=4,8,256,64
+vec32:--matmul-vec-size-bits=32
+vec64:--matmul-vec-size-bits=64 --no-obj-ref-mgnt
+vec128:--matmul-vec-size-bits=128 --no-obj-ref-mgnt
+vec256:--matmul-vec-size-bits=256 --no-obj-ref-mgnt
+vec256:--matmul-vec-size-bits=256 --no-obj-ref-mgnt
+bond_tile_vec256: --matmul-fixed-tile-sizes=3,16,480,180 --matmul-vec-size-bits=256 --no-obj-ref-mgnt
