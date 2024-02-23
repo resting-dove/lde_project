@@ -1,15 +1,19 @@
-Error:
-Access to performance monitoring and observability operations is limited.
-Consider adjusting /proc/sys/kernel/perf_event_paranoid setting to open
-access to performance monitoring and observability operations for processes
-without CAP_PERFMON, CAP_SYS_PTRACE or CAP_SYS_ADMIN Linux capability.
-More information can be found at 'Perf events and tool security' document:
-https://www.kernel.org/doc/html/latest/admin-guide/perf-security.html
-perf_event_paranoid setting is 4:
-  -1: Allow use of (almost) all events by all users
-      Ignore mlock limit after perf_event_mlock_kb without CAP_IPC_LOCK
->= 0: Disallow raw and ftrace function tracepoint access
->= 1: Disallow CPU event access
->= 2: Disallow kernel profiling
-To make the adjusted perf_event_paranoid setting permanent preserve it
-in /etc/sysctl.conf (e.g. kernel.perf_event_paranoid = <setting>)
+ms:7723.16
+sum:1.07665e+06
+
+ Performance counter stats for '/home/ulli/daphne/bin/daphne --mlir-codegen --matmul-fixed-tile-sizes=3,32,512,348 ./scripts/matmul/matmul2048.daph':
+
+     1.972.103.949      cache-references                                                      
+        51.921.813      cache-misses                     #    2,63% of all cache refs         
+    30.845.881.909      cycles                                                                
+    46.279.602.557      instructions                     #    1,50  insn per cycle            
+     1.203.547.127      branches                                                              
+            31.029      faults                                                                
+                 9      migrations                                                            
+
+       8,129328083 seconds time elapsed
+
+       8,478582000 seconds user
+       0,694900000 seconds sys
+
+

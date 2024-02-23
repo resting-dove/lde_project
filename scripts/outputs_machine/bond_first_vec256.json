@@ -1,0 +1,38 @@
+{
+  "results": [
+    {
+      "command": "/home/ulli/daphne/bin/daphne --mlir-codegen  --matmul-fixed-tile-sizes=4,8,256,64 --matmul-vec-size-bits=256 --no-obj-ref-mgnt ./scripts/matmul/matmul2048.daph >> ./scripts/outputs_machine/bond_first_vec256.out",
+      "mean": 3.2246643372200006,
+      "stddev": 0.029059893699373947,
+      "median": 3.21711514172,
+      "user": 3.56929976,
+      "system": 0.67927202,
+      "min": 3.19900820522,
+      "max": 3.2822333782200004,
+      "times": [
+        3.26663071122,
+        3.2353134112200004,
+        3.20180388622,
+        3.2025400142200002,
+        3.19900820522,
+        3.22239117922,
+        3.20076350422,
+        3.21183910422,
+        3.22411997822,
+        3.2822333782200004
+      ],
+      "exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

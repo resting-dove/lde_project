@@ -1,0 +1,38 @@
+{
+  "results": [
+    {
+      "command": "/home/ulli/daphne/bin/daphne --mlir-codegen  --matmul-fixed-tile-sizes=4,8,256,64 --matmul-unroll-factor=4 ./scripts/matmul/matmul2048.daph >> ./scripts/outputs_machine/bond_first_unroll4.out",
+      "mean": 8.13255476422,
+      "stddev": 0.02432839021203337,
+      "median": 8.12237667052,
+      "user": 8.482767280000001,
+      "system": 0.6919719,
+      "min": 8.11555563152,
+      "max": 8.194710086519999,
+      "times": [
+        8.194710086519999,
+        8.14878993952,
+        8.116612823519999,
+        8.11555563152,
+        8.12212638152,
+        8.139619010519999,
+        8.11793034452,
+        8.12779199852,
+        8.119784466519999,
+        8.12262695952
+      ],
+      "exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

@@ -1,19 +1,19 @@
-ms:65849.9
+ms:62751
 sum:1.07665e+06
 
  Performance counter stats for '/home/ulli/daphne/bin/daphne --mlir-codegen --matmul-vec-size-bits=64 --no-obj-ref-mgnt ./scripts/matmul/matmul2048.daph':
 
-    10.328.514.187      cache-references                                                      
-     8.048.524.554      cache-misses                     #   77,93% of all cache refs         
-   227.800.246.612      cycles                                                                
-    62.730.672.775      instructions                     #    0,28  insn per cycle            
-     8.987.901.048      branches                                                              
-            30.700      faults                                                                
-                 5      migrations                                                            
+    10.234.119.777      cache-references                                                      
+     7.777.250.945      cache-misses                     #   75,99% of all cache refs         
+   217.283.122.836      cycles                                                                
+    62.701.533.463      instructions                     #    0,29  insn per cycle            
+     8.978.653.549      branches                                                              
+            30.721      faults                                                                
+                14      migrations                                                            
 
-      66,191828001 seconds time elapsed
+      63,089784413 seconds time elapsed
 
-      66,541572000 seconds user
-       0,691933000 seconds sys
+      63,375495000 seconds user
+       0,755755000 seconds sys
 
 

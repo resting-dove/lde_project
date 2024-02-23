@@ -1,0 +1,6 @@
+A = readMatrix("LEFTFILENAME");
+B = readMatrix("RIGHTFILENAME");
+
+equals = (A == B);
+
+print("LEFTFILENAME and RIGHTFILENAME are equal: ", equals)
