@@ -1,0 +1,3 @@
+bond_tile_vec256: --matmul-fixed-tile-sizes=3,16,480,180 --matmul-vec-size-bits=256 --no-obj-ref-mgnt
+auto_vec_S:--matmul-tile --matmul-vec-size-bits=256 --matmul-num-vec-registers=16 --no-obj-ref-mgnt
+fixed_tile_vec_S: --matmul-fixed-tile-sizes=3,16,480,180 --matmul-vec-size-bits=256 --no-obj-ref-mgnt
