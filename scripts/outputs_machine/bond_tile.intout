@@ -1,2 +1,6 @@
-[error]: Got an abort signal from the execution engine. Most likely an exception in a shared library. Check logs!
-[error]: Execution error: Returning from signal 6
+ms:8784.77
+sum:8589934592
+ms:8778.95
+sum:8589934592
+ms:8723.39
+sum:8589934592

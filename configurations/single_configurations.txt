@@ -4,3 +4,4 @@ auto_vec_256:--matmul-tile --matmul-vec-size-bits=256 --no-obj-ref-mgnt
 bond_sgemm_vec256: --matmul-fixed-tile-sizes=3,32,512,348 --matmul-vec-size-bits=256 --no-obj-ref-mgnt
 bond_sgemm: --matmul-fixed-tile-sizes=3,32,512,348
 bond_tile_vec256: --matmul-fixed-tile-sizes=3,16,480,180 --matmul-vec-size-bits=256 --no-obj-ref-mgnt
+naive:

@@ -1,6 +1,6 @@
-N = 2048;
-A = as.matrix<ui64>(rand(N, N, 0, 1, 1.0, 42));
-B = as.matrix<ui64>(rand(N, N, 0, 1, 1.0, 44));
+N = 8192;
+A = as.matrix<f32>(rand(N, N, -10.0, 10.0, 1.0, 42));
+B = as.matrix<f32>(rand(N, N, -10.0, 10.0, 1.0, 44));
 
 start = now();
 C = A@B;
