@@ -1,3 +1,5 @@
+invert:--matmul-invert-loops
+invert_vec256:--matmul-invert-loops --matmul-vec-size-bits=256 --no-obj-ref-mgnt
 bond_tile: --matmul-fixed-tile-sizes=3,16,480,180
 auto_tile:--matmul-tile
 auto_vec_256:--matmul-tile --matmul-vec-size-bits=256 --no-obj-ref-mgnt

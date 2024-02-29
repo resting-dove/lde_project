@@ -1,0 +1,38 @@
+{
+  "results": [
+    {
+      "command": "/home/ulli/daphne/bin/daphne --mlir-codegen --matmul-invert-loops --matmul-vec-size-bits=256 --no-obj-ref-mgnt ./scripts/matmul/matmul2048.daph >> ./scripts/outputs_machine/invert_vec256.out",
+      "mean": 4.3150357263800005,
+      "stddev": 0.015003108365259976,
+      "median": 4.30895170518,
+      "user": 4.25015494,
+      "system": 0.06485347999999999,
+      "min": 4.29915232318,
+      "max": 4.3363300681800006,
+      "times": [
+        4.311860562180001,
+        4.3363300681800006,
+        4.33568337418,
+        4.336276514180001,
+        4.304982911180001,
+        4.311779658180001,
+        4.30496920018,
+        4.29915232318,
+        4.30319890018,
+        4.30612375218
+      ],
+      "exit_codes": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

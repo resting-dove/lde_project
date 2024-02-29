@@ -1,3 +1,4 @@
+invert:--matmul-invert-loops
 auto_vec_64:--matmul-tile --matmul-vec-size-bits=64 --no-obj-ref-mgnt
 bond_first_vec64: --matmul-fixed-tile-sizes=4,8,256,64 --matmul-vec-size-bits=64 --no-obj-ref-mgnt
 auto_tile:--matmul-tile
