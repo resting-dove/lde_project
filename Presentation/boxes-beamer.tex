@@ -1,0 +1,204 @@
+% no thmtools
+
+% decide if plain theorems should be numbered (theorems, lemmas, ...)
+\newcommand{\plainnumbered}{0} % 1 - numbered, 0 - unnumbered
+\newcounter{plain}
+\setcounter{plain}{1}
+
+% decide if vari thms should be numbered (examples ...)
+\newcommand{\varinumbered}{0} % 1 - numbered, 0 - unnumbered
+\newcounter{vari}
+\setcounter{vari}{1}
+
+% this command defines a command to define theorems, lemmas, etc.
+% \makeatletter
+\newcommand{\defineplaintheorem}[3][alertcolor]{
+    \newenvironment{#2}[1][\@nil]
+        {%
+        \def\tmp{##1}%
+        \ifthenelse{\equal{##1}{\@nil}}
+            {\ifnum\plainnumbered=0 % and no numbering is wished for
+                            \def\frmtitle{\color{#1}\bfseries #3.}
+                        \else % if numbering is wished
+                            \def\frmtitle{\color{#1}\bfseries #3
+                            \arabic{plain}\stepcounter{plain}.}
+                        \fi}
+            {\ifnum\plainnumbered=0 % and no numbering is wished for
+                            \def\frmtitle{\color{#1}\bfseries #3 \mdseries[##1]\bfseries.}
+                        \else % if numbering is wished
+                            \def\frmtitle{\color{#1}\bfseries #3 \arabic{plain}\stepcounter{plain} \mdseries[##1]\bfseries.}
+                        \fi}
+        \color{black} % dirty fix!
+        \normalsize % dirty fix!
+        \begin{mdframed}[
+            roundcorner=2pt,
+            backgroundcolor=white!90!#1,
+            linecolor=#1,
+            linewidth=.7pt, 
+            % linewidth=0pt, 
+            frametitle={\frmtitle},
+            frametitlebelowskip=2pt,
+            innertopmargin=2pt,
+            % frametitlerule=true,
+            % frametitlebackgroundcolor=#1!25!white,
+            ]
+        % \tolerance 2000%
+        % \emergencystretch 3em%
+        % \hfuzz .5\p@
+        % \vfuzz\hfuzz
+        }
+        {
+        \end{mdframed}
+        }
+}
+
+
+\newcommand{\definevaritheorem}[3][examplecolor]{
+    \newenvironment{#2}[1][\@nil]
+        {
+        \def\tmp{##1}%
+        \ifx\tmp\@nnil % if no name of the theorem is given
+            \ifnum\varinumbered=0 % and no numbering is wished for
+                \def\frmtitle{\color{#1}\bfseries #3.}
+            \else % if numbering is wished
+                \def\frmtitle{\color{#1}\bfseries #3
+                \arabic{vari}\stepcounter{vari}.}
+            \fi
+        \else % if theorem name is given
+            \ifnum\varinumbered=0 % and no numbering is wished for
+                \def\frmtitle{\color{#1}\bfseries #3 \mdseries[##1]\bfseries.}
+            \else % if numbering is wished
+                \def\frmtitle{\color{#1}\bfseries #3 \arabic{vari}\stepcounter{vari} \mdseries[##1]\bfseries.}
+            \fi
+        \fi
+        \begin{mdframed}[
+            roundcorner=2pt,
+            backgroundcolor=white!90!#1,
+            % linecolor=green,
+            linewidth=0pt,
+            frametitle={\frmtitle},
+            frametitlebelowskip=2pt,
+            innertopmargin=2pt,
+            % frametitlerule=true,
+            % frametitlebackgroundcolor=alertcolor!10!white,
+            ]
+        % \tolerance 2000%
+        % \emergencystretch 3em%
+        % \hfuzz .5\p@
+        % \vfuzz\hfuzz
+        }
+        {
+        \end{mdframed}
+        }
+}
+% \makeatother
+
+
+
+
+
+
+%--------- for thmtools --------
+% \def \leftrightmargin {20}
+%
+% \makeatletter
+% % a robust wrapper of \qedsymbol
+% \protected\edef\xqedsymbol{\unexpanded\expandafter{\qedsymbol}}
+% \makeatother
+%
+%
+%
+% % only used for remark
+% \declaretheoremstyle[
+% spaceabove=0pt, spacebelow=0pt,
+% headfont=\normalfont\bfseries,
+% notefont=\mdseries, notebraces={(}{)},
+% bodyfont=\small\normalfont,
+% postheadspace=1em,
+% mdframed={innertopmargin=0pt,
+%           innerbottommargin=0pt,
+%           innerleftmargin=\leftrightmargin pt,
+%           innerrightmargin=\leftrightmargin pt,
+%           hidealllines=true,
+%           }
+% ]{standardrem}
+%
+% % only used for example
+% \declaretheoremstyle[
+% spaceabove=0pt, spacebelow=0pt,
+% headfont=\normalfont\bfseries,
+% notefont=\mdseries, notebraces={(}{)},
+% bodyfont=\small\normalfont,
+% postheadspace=1em,
+% mdframed={innertopmargin=0pt,
+%           innerbottommargin=0pt,
+%           innerleftmargin=\leftrightmargin pt,
+%           innerrightmargin=\leftrightmargin pt,
+%           hidealllines=true,
+%           }
+% ]{standardex}
+%
+% % this is used for theorems, lemmas, corollarys
+% \declaretheoremstyle[
+% spaceabove=3pt, spacebelow=0pt,
+% headfont=\color{alertcolor}\bfseries,
+% notefont=\color{alertcolor}\mdseries, notebraces={[}{]},
+% bodyfont=\normalfont,
+% postheadspace=\newline,
+% mdframed={
+%             backgroundcolor=alertcolor!10!white,
+%             linewidth=0pt,
+%             roundcorner=3pt,
+%           }
+% ]{standarddef}
+%
+% % only used for proof
+% \declaretheoremstyle[
+% spaceabove=0pt, spacebelow=0pt,
+% headfont=\normalfont\itshape,
+% bodyfont=\normalfont,
+% postheadspace=1em,
+% qed=$\blacksquare$,
+% mdframed={innertopmargin=0pt,
+%           innerbottommargin=0pt,
+%           innerleftmargin=\leftrightmargin pt,
+%           innerrightmargin=\leftrightmargin pt,
+%           skipabove=-10pt,
+%           hidealllines=true,
+%           }
+% ]{standardproof}
+%
+% \declaretheorem[
+% style=standarddef,
+% refname={Theorem,Theorems},
+% Refname={Theorem,Theorems}]{theorem}
+%
+% \declaretheorem[
+% style=standarddef,
+% sibling=theorem,
+% refname={Lemma,Lemmas},
+% Refname={Lemma,Lemmas}]{lemma}
+%
+% \declaretheorem[
+% style=standarddef,
+% sibling=theorem,
+% refname={Corollary,Corollarys},
+% Refname={Corollary,Corollarys}]{corollary}
+%
+% \declaretheorem[
+% style=standarddef,
+% sibling=theorem,
+% refname={Definition,Definitions},
+% Refname={Definition,Definitions}]{definition}
+%
+% \declaretheorem[
+% style=standardrem,
+% sibling=theorem,
+% refname={Remark,Remarks},
+% Refname={Remark,Remarks}]{remark}
+%
+% \declaretheorem[
+% style=standardex,
+% sibling=theorem,
+% refname={Example,Examples},
+% Refname={Example,Examples}]{example}

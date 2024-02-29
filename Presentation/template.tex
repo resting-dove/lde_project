@@ -1,0 +1,377 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%% created by Attila Karsai %%%%%%%
+%%%%%%%                          %%%%%%%
+%%%%%%% by default, the template %%%%%%%
+%%%%%%%    only compiles using   %%%%%%%
+%%%%%%%   lualatex. if you dont  %%%%%%%
+%%%%%%% have lualatex installed, %%%%%%%
+%%%%%%% just uncomment the lines %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% if you have problems/questions %%%%
+% contact me: karsai@math.tu-berlin.de %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%  changelog:
+%  - 2024-jan-26
+%     - removed external commands file
+%     - changed folder structure
+%     - added commands to fix spacing issues with monospaced fonts
+%     - added section command in beamertheme_FGMSO.sty
+%     - improved documentation a bit
+% - 2023-jan-21
+%     - first release
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[aspectratio=169,mathserif,noamsthm,13pt]{beamer}
+
+\usepackage[english]{babel}
+\usepackage{csquotes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% for LuaLaTeX and JuliaMono %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\usepackage{fontspec}
+%    \defaultfontfeatures{Scale=0.9}
+    %\setmonofont{JuliaMono}
+    %\setmonofont{Menlo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% for pdfLaTeX and BeraMono %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{yfonts}
+\usepackage[scaled]{beramono}
+\usepackage[sfdefault]{inter}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%% to fix spacing of mono fonts %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{everysel}
+    \EverySelectfont{%
+    \fontdimen2\font=0.4em% interword space
+    \fontdimen3\font=0.2em% interword stretch
+    \fontdimen4\font=0.1em% interword shrink
+    \fontdimen7\font=0.1em% extra space
+    \hyphenchar\font=`\-% to allow hyphenation
+}
+\usepackage{microtype}
+
+
+\usepackage{pgfplots}
+\usepackage{tikz}
+    \pgfplotsset{compat=newest}
+    \usetikzlibrary{plotmarks}
+    \usetikzlibrary{calc}
+    \usetikzlibrary{positioning}
+    \usetikzlibrary{arrows.meta}
+    \usetikzlibrary{matrix}
+    \usepgfplotslibrary{patchplots}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{xstring}
+\usepackage{etoolbox}
+\usepackage{ifthen}
+\usepackage[shortlabels]{enumitem}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+% \usepackage{thmtools}
+
+% \usepackage{pdfpages}
+\usepackage{xspace}
+\usepackage{graphicx}
+    \graphicspath{.}
+
+\usepackage[labelsep=period]{caption}
+    \captionsetup[figure]{font=small,width=.9\linewidth,belowskip=-7pt}
+
+\usepackage[style=ieee]{biblatex}
+\usepackage{bibentry}
+\addbibresource{Bibliography.bib}
+
+% For \Verb
+\usepackage{fancyvrb}
+% For pseudocode
+\usepackage[noend]{algorithm2e}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%% colors %%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% the alertcolor is the main color %%%
+%%%%%% of the entire presentation %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\definecolor{alertcolor}{RGB}{55, 107, 140}  % blue, default
+\definecolor{alertcolor}{cmyk}{0.85,0.21,0,0} % Aalto blue
+\definecolor{lesscolor}{RGB}{43,58,68} % Original structure
+
+% \definecolor{alertcolor}{RGB}{186, 137, 0} % orange
+% \definecolor{alertcolor}{RGB}{108, 0, 140} % purple
+% \definecolor{alertcolor}{RGB}{15, 135, 0}  % green
+% \definecolor{alertcolor}{RGB}{197, 14, 31} % TUB red
+%\definecolor{examplecolor}{RGB}{15, 102, 0}
+\definecolor{examplecolor}{cmyk}{0, 59, 80, 0} % Aalto Orange
+\setbeamercolor{alerted text}{fg=alertcolor}
+\setbeamercolor{block title alerted}{bg=alertcolor}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% custom boxes %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{boxes-beamer.tex}    % better not change this...
+
+
+% here, the theorem and lemmas are defined.
+% the syntax is
+%   \defineplaintheorem[background color]{environment name}{title shown in bold}
+%
+\defineplaintheorem{theorem}{Theorem}
+\defineplaintheorem{lemma}{Lemma}
+\defineplaintheorem{proposition}{Proposition}
+\defineplaintheorem{corollary}{Corollary}
+\defineplaintheorem{definition}{Definition}
+\defineplaintheorem[examplecolor]{example}{Example}
+\defineplaintheorem[examplecolor]{assumption}{Assumption}
+
+% there is also a second environment defined, which allows
+% to, e.g., number examples differently. the syntax is the same.
+%   an example is:
+%
+% \definevaritheorem{example}{Example}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% custom commands %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\norm}[1]{\Vert #1 \Vert}
+\newcommand{\sca}[1]{\langle #1 \rangle}
+\newcommand{\scal}[2]{\langle #1, #2 \rangle}
+% \newcommand{\wip}{\color{black!30!red}}
+\newcommand{\inv}{^{-1}}
+\newcommand{\tp}{^{\mathsf{T}}}
+\newcommand{\herm}{^{\mathsf{H}}}
+\newcommand*\dif{\mathop{}\!\mathrm{d}}
+
+% \newcommand{\dt}{\,\mathrm{d}t}
+\newcommand{\missing}{\wip missing. \color{black}}
+\renewcommand{\vec}[1]{\begin{bmatrix} #1 \end{bmatrix}}
+\newcommand{\fApp}{\boldsymbol{\mathfrak{f}}}
+
+\def\divdif{{\vrule\mkern-8mu \Delta}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% nice := sign %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mathchardef\ordinarycolon\mathcode`\:
+\mathcode`\:=\string"8000
+\begingroup \catcode`\:=\active
+  \gdef:{\mathrel{\mathop\ordinarycolon}}
+\endgroup
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% nice mathcal font %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathAlphabet{\altmathcal}{OMS}{cmsy}{m}{n}
+\renewcommand{\mathcal}{\altmathcal}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%% custom cite command %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\mycitestyle}{\color{alertcolor}}
+\newcommand{\mycitestyletiny}{\color{lesscolor}\tiny}
+\makeatletter
+\def\blfootnote{\xdef\@thefnmark{}\@footnotetext}
+\makeatother
+\let\oldcite\cite
+\newcommand{\fakeAuthoYearCite}[1]{\citeauthor{#1} (\citeyear{#1}). \citetitle{#1}.}
+\newcommand{\footnoteCiteStyle}[1]{{\color{alertcolor}\oldcite{#1}} \fakeAuthoYearCite{#1}}
+\renewcommand{\cite}[1]{{\mycitestyle\oldcite{#1}}\blfootnote{\mycitestyletiny\footnoteCiteStyle{#1}}}
+
+\newcommand{\dcite}[2]{{\oldcite{#1, #2}}
+%\blfootnote{\mycitestyletiny {\color{alertcolor}\oldcite{#1}} \fakeAuthoYearCite{#1}}
+%\blfootnote{\mycitestyletiny {\color{alertcolor}\oldcite{#2}} \fakeAuthoYearCite{#2}}
+}
+
+% \newcommand{\dcite}[2]{{\mycitestyle\oldcite{#1,#2}}\blfootnote{\mycitestyletiny\oldcite{#1}~\bibentry{#1}}\blfootnote{\mycitestyletiny\oldcite{#2}~\bibentry{#2}}}
+
+% \newcommand{\blfootcite}[1]{\blfootnote{\mycitestyletiny\oldcite{#1}~\bibentry{#1}}}
+
+% \newcommand{\ifootcite}[1]{\mycitestyle\color{white}\oldcite{#1}\blfootnote{\mycitestyletiny\color{white}\oldcite{#1}~\bibentry{#1}}}
+
+% \newcommand{\framecite}[2]{\SUBTRACT{#2}{1}{\citevisible}\only<#2->{\cite{#1}}\only<-\citevisible>{\ifootcite{#1}}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% tikz functions %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\newcommand{\gettikzxy}[3]{%
+  \tikz@scan@one@point\pgfutil@firstofone#1\relax
+  \edef#2{\the\pgf@x}%
+  \edef#3{\the\pgf@y}%
+}
+\makeatother
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% underfull box fix %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\emergencystretch=3em
+\hbadness=99999  % or any number >=10000
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% vspace shortcuts %%%%%%%%%%%
+%%%%%%%%%%%  -come in handy- %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\vs}{\vspace{0.5cm}}
+\newcommand{\vsm}{\vspace{-0.3cm}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% itemize symbol %%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\isym}{\tiny\raisebox{1.5pt}{$\blacksquare$}}
+% \newcommand{\isym}{-} % a more traditional item style
+\setlist[itemize]{label=\isym}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%% your image files go here %%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newcommand{\institutegraphic}{resources/tub-logo.jpg}
+\newcommand{\institutegraphic}{} % no institute graphic
+
+% \newcommand{\projectgraphic}{resources/trr-logo.png} % trr logo
+%\newcommand{\projectgraphic}{resources/daedalus-logo.png} % daedalus logo
+\newcommand{\projectgraphic}{} % no project graphic
+
+%\newcommand{\fundinggraphic}{resources/wide_blue_title.png}
+\newcommand{\fundinggraphic}{} % no funding graphic
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% image heights %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\instituteheight}{.3\textheight}
+\newcommand{\projectheight}{.18\textheight}
+\newcommand{\fundingheight}{\textheight}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% tell latex to use beamertheme %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usetheme{FGMSO}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%% typewriter font as default %%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\renewcommand{\familydefault}{\ttdefault}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% talk metadata %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title[Large Scale Data Engineering Seminar]{\LARGE Optimizing Code Generation for Matrix Multiplication}
+% \subtitle{in case you want to use a subtitle ...}
+\author[H. Willems]{Henri Willems
+\\ \normalfont %\ttfamily
+henri.willems@campus.tu-berlin.de
+}
+\institute[TU Berlin]{WS 23/24, TU Berlin}
+\date{March 04, 2024}
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%% action starts here %%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+
+\begin{frame}[noframenumbering,plain]
+    \maketitle
+    
+\end{frame}
+
+\begin{frame}{Matrix Multiplication}
+    What is it
+
+    How often is it used
+
+    What is the challenge? I.e. memory or cache or computation bound
+\end{frame}
+
+\begin{frame}{BLAS}
+    What is it
+\end{frame}
+
+\begin{frame}{Code Generation}
+    What is it and why
+
+    When is it preferrable to BLAS or not? (combine with prev slide)
+\end{frame}
+
+\begin{frame}{MLIR Code rewriting}
+    Lower code from Daphne dialect to LLVM through affine loops
+
+    Maybe show syntax or maybe not
+
+    Effect: Enabled matmuls on these additional value types
+\end{frame}
+
+\begin{frame}{Optimizations enabled}
+    Tiling
+        effect
+    Vectorization
+        effect
+\end{frame}
+
+\begin{frame}{Optimizations enabled}
+    Combined effect
+\end{frame}
+
+\begin{frame}{Further improvements}
+    Packing effect
+\end{frame}
+
+\begin{frame}[allowframebreaks,noframenumbering,plain]{Bibliography}
+    \printbibliography
+    % you can also put absolute paths here
+\end{frame}
+
+\begin{frame}[noframenumbering,plain]
+    {\centering\usebeamerfont{title}\usebeamercolor[fg]{title}\insertauthor}%
+\end{frame}
+
+\begin{frame}[noframenumbering]{Appendix}
+    Further experiments
+\end{frame}
+
+\end{document}

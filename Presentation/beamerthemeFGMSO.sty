@@ -1,0 +1,223 @@
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemeFGMSO}[2023/01/21]
+\mode<presentation>
+\RequirePackage{etoolbox}
+\RequirePackage{ifthen}
+\RequirePackage{zref-abspage}
+
+\def\ttbeamer@pathname@patch{\ttbeamer@pathname@base patch/}
+\def\ttbeamer@filename@patch{%
+  \ttbeamer@pathname@patch ttbeamer-\ttbeamer@option@workplace}
+\newlength\ttbeamer@length@margin
+\ttbeamer@length@margin=0.7cm
+\newlength\ttbeamer@length@footlinebottompadding
+\ttbeamer@length@footlinebottompadding=.163cm
+\newlength\ttbeamer@length@footlineheight
+\ttbeamer@length@footlineheight=.4cm
+\newlength\ttbeamer@length@logoheight
+\ttbeamer@length@logoheight=1.4cm
+\definecolor{ttbeamer@structure}{RGB}{43,58,68}
+\definecolor{ttbeamer@base}{cmyk}{60, 40, 40, 100} % Black
+\definecolor{ttbeamer@bottom}{cmyk}{0,0,0,0} % White
+\definecolor{ttbeamer@background}{cmyk}{0,0,0,0} % White {RGB}{242, 242, 242}
+\def\bottomfont{\sffamily}
+\setbeamersize{%
+  text margin left=\ttbeamer@length@margin,
+  text margin right=\ttbeamer@length@margin}
+\setbeamertemplate{frametitle}{%
+  \vtop{{%
+      \usebeamerfont{frametitle}{\insertframetitle}%
+      \ifx\insertframesubtitle\@empty\else\\
+        \usebeamerfont{framesubtitle}{\insertframesubtitle}
+      \fi}
+    \vfill}}
+
+%
+% NAVIGATION SYMBOLS
+%
+\setbeamertemplate{navigation symbols}{}
+
+%
+% HEADLINE
+%
+\setbeamertemplate{headline}{}
+
+%
+% NO FRAMETITLE NUMBERS WHEN ALLOWFRAMEBREAKS
+%
+\setbeamertemplate{frametitle continuation}{}
+
+%
+% FOOTLINE ON SLIDES
+%
+\setbeamertemplate{footline}{%
+  \hskip\ttbeamer@length@margin
+  \usebeamercolor[fg]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \usebeamercolor[fg]{structure}%
+    \usebeamerfont{structure}\ \lower1pt\hbox{\normalsize$\cdot$}\
+  \usebeamercolor[fg]{title in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshorttitle
+  \usebeamercolor[fg]{structure}%
+    \usebeamerfont{structure}\ \lower1pt\hbox{\normalsize$\cdot$}\
+  \usebeamercolor[fg]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate\hfill
+  \usebeamercolor[fg]{page number in head/foot}%
+    \usebeamerfont{author in head/foot}\insertframenumber\ /
+    \inserttotalframenumber
+  \hskip\ttbeamer@length@margin
+  \vrule width 0pt height \ttbeamer@length@footlineheight
+         depth \ttbeamer@length@footlinebottompadding}
+
+%
+% TITLE PAGE
+%
+\setbeamertemplate{title page}{%
+  \vskip\ttbeamer@length@margin
+  \ifdefempty{\institutegraphic}{}{\includegraphics[height=\instituteheight,keepaspectratio]{\institutegraphic}}
+  \ifdefempty{\projectgraphic}{}{\hfill\includegraphics[height=\projectheight,keepaspectratio]{\projectgraphic}}
+  \vskip0pt plus 6filll
+  {\usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par}%
+  \vskip0pt plus 1filll
+
+  {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle}%
+  \vskip0pt plus 4filll
+
+  {\usebeamerfont{author}\usebeamercolor[fg]{title author}\insertauthor}%
+
+  {\usebeamerfont{institute}\usebeamercolor[fg]{title institute}\insertinstitute}%
+  \vskip0pt plus 4filll
+
+
+  {\usebeamerfont{date} %\insertshorttitle \usebeamerfont{structure}\ \lower1pt\hbox{\Large$\cdot$}\ 
+  \usebeamerfont{date}\insertdate}%
+  \vskip\ttbeamer@length@margin
+
+
+  \ifdefempty{\fundinggraphic}{}{\vspace{-\fundingheight}\vspace{-\ttbeamer@length@margin}\hfill\includegraphics[height=\fundingheight,keepaspectratio]{\fundinggraphic}\vskip\ttbeamer@length@margin}
+
+  }
+\setbeamertemplate{bibliography item}[text]
+
+
+% SECTION SEPARATOR
+% 
+\AtBeginSection[]{
+    \begin{frame}[noframenumbering,plain]\frametitle{}
+        \centering
+        \usebeamerfont{title}\insertsectionhead
+    \end{frame}
+}
+
+
+
+
+% LAST PAGE
+%
+% \def\ttbeamer@lastpage{%
+%   \begingroup
+%   \setbeamercolor{background canvas}{bg=ttbeamer@label}
+%   \begin{frame}[plain]
+%   \vfill
+%   \centering
+%   \ttbeamer@subroutine@includegraphics%
+%     [width=\textwidth]%
+%     {\ttbeamer@filename@label}%
+%     {\ttbeamer@filename@label@fallback}%
+%     {\ttbeamer@filename@label@lastresort}%
+%   \vfill
+%   \end{frame}
+%   \endgroup}
+% \AtEndDocument{\ttbeamer@lastpage}
+
+
+%
+% SLIDE CONFIG
+%
+\setbeamercolor{background canvas}{bg=ttbeamer@background}%
+\setbeamercolor{title author}{fg=ttbeamer@bottom}
+\setbeamercolor{title institute}{fg=ttbeamer@bottom}
+
+\setbeamerfont{structure}{series=\mdseries}
+\setbeamercolor{structure}{fg=ttbeamer@structure}
+
+% \setbeamerfont{alerted text}{series=\bfseries}
+% \setbeamercolor{alerted text}{fg=ttbeamer@orange2}
+
+\setbeamerfont{title}{size=\huge,series=\bfseries}
+\setbeamercolor{title}{fg=ttbeamer@base}
+\setbeamerfont{title in head/foot}{size=\tiny,series=\bfseries,family=\bottomfont}
+\setbeamercolor{title in head/foot}{fg=ttbeamer@bottom}
+
+\setbeamerfont{subtitle}{size=\large,series=\mdseries}
+\setbeamercolor{subtitle}{fg=ttbeamer@base}
+
+\setbeamerfont{author}{series=\bfseries,size=\small}
+\setbeamerfont{author in head/foot}{size=\tiny,series=\mdseries,family=\bottomfont}
+\setbeamercolor{author in head/foot}{fg=ttbeamer@bottom}
+
+\setbeamerfont{page number}{series=\footnotesize}
+\setbeamerfont{page number in head/foot}{size=\tiny,series=\mdseries,family=\bottomfont}
+\setbeamercolor{page number in head/foot}{fg=ttbeamer@bottom}
+
+\setbeamerfont{date}{size=\footnotesize}
+\setbeamerfont{date in head/foot}{size=\tiny,series=\mdseries,family=\bottomfont}
+\setbeamercolor{date in head/foot}{fg=ttbeamer@bottom}
+
+\setbeamerfont{frametitle}{series=\bfseries,size=\Large}
+\setbeamercolor{frametitle}{parent=title}
+
+\setbeamerfont{framesubtitle}{series=\bfseries,size=\large}
+\setbeamercolor{framesubtitle}{parent=subtitle}
+
+\setbeamerfont{section in head/foot}{series=\bfseries}
+
+\setbeamercolor{bibliography entry author}{%
+  use=normal text,fg=normal text.fg}
+\setbeamercolor{bibliography entry title}{%
+  use=normal text,fg=normal text.fg}
+\setbeamercolor{bibliography entry location}{%
+  use=normal text,fg=normal text.fg}
+\setbeamercolor{bibliography entry note}{%
+  use=normal text,fg=normal text.fg}
+
+\setbeamerfont{footnote}{size=\footnotesize}
+\setbeamercolor{footnote mark}{parent=structure}
+
+\setbeamerfont{section in head/foot}{parent=structure}
+\setbeamercolor{section in head/foot}{fg=ttbeamer@bottom}
+
+\setbeamerfont{subsection in head/foot}{parent=normal text}
+\setbeamercolor{subsection in head/foot}{fg=ttbeamer@bottom}
+
+% \setbeamercolor{block title}{fg=white,bg=ttbeamer@base}
+% \setbeamercolor{block title example}{%
+%   use=alerted text,fg=white,bg=ttbeamer@gray7}
+% \setbeamercolor{block title alerted}{%
+%   % use=alerted text,fg=black, bg=ttbeamer@base}
+%   use=alerted text,fg=white,bg=ttbeamer@orange1}
+%
+% \setbeamercolor{block body}{%
+%   parent=normal text,use=block title,
+%   bg=bg}
+%   % bg=block title.bg!2!bg}
+% \setbeamercolor{block body example}{%
+%   parent=normal text,bg=ttbeamer@gray1}
+% \setbeamercolor{block body alerted}{%
+%   parent=normal text,use=block title alerted,
+%   bg=bg}
+  % bg=block title alerted.bg!2!bg}
+
+\setbeamertemplate{background} {
+  \ifbeamer@plainframe
+   \ifnum\c@abspage=0%
+        \includegraphics[width=\paperwidth,height=\paperheight]{resources/black_bar.png}
+    \fi
+  \else
+        \includegraphics[width=\paperwidth,height=\paperheight]{resources/wide_black.png}
+\fi
+}
+\mode
+  <all>
+\endinput
