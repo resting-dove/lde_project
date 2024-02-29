@@ -5,7 +5,7 @@ export  OPENBLAS_NUM_THREADS=1
 
 daphne_dir=$1
 eval_dir=$(pwd)
-for branch in "accumulator" "loop_inversion"
+for branch in "accumulator"
 do 
     cd "$daphne_dir" || exit
     git checkout "benchmark/${branch}"
