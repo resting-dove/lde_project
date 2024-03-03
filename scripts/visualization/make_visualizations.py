@@ -247,6 +247,7 @@ ax = pd.DataFrame(times).sort_index().drop(2047, axis=0).plot(linewidth=3, marke
 ax.set_xlabel("Vector size")
 ax.set_ylabel("seconds")
 ax.set_yscale("log")
+ax.set_xscale("log")
 plt.tight_layout()
 plt.savefig("Figures/matVecSubset.png")
 plt.close()
@@ -365,7 +366,7 @@ plt.close()
 
 # 9: Effect of Tiling
 medians = {}
-for file_name in ["naive.out", "accumulator.out", "invert.out", "auto_tile.out", "bond_first.out", "bond_half.out", "bond_sgemm.out", "bond_tile.out", "kernel.out"]:
+for file_name in ["naive.out", "invert.out", "auto_tile.out", "bond_first.out", "bond_half.out", "bond_sgemm.out", "bond_tile.out", "kernel.out"]:
     if ".out" in file_name:
         with open(os.path.join("./scripts/outputs_machine/", file_name), "rt") as file:
             times = []
@@ -390,7 +391,7 @@ plt.close()
 
 # 10: Effect of Vectorization
 medians = {}
-for file_name in ["naive.out", "accumulator.out", "vec32.out", "vec64.out", "vec128.out", "vec256.out", "kernel.out"]:
+for file_name in ["naive.out", "vec32.out", "vec64.out", "vec128.out", "vec256.out", "kernel.out"]:
     if ".out" in file_name:
         with open(os.path.join("./scripts/outputs_machine/", file_name), "rt") as file:
             times = []
@@ -415,7 +416,7 @@ plt.close()
 
 # 11: Effect of Vectorization + Tiling
 medians = {}
-for file_name in ["naive.out", "bond_first_vec256.out", "invert_vec256.out", "kernel.out"]:
+for file_name in ["naive.out", "bond_first.out", "bond_first_vec256.out", "invert_vec256.out", "kernel.out"]:
     if ".out" in file_name:
         with open(os.path.join("./scripts/outputs_machine/", file_name), "rt") as file:
             times = []
