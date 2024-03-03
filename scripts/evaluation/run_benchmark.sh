@@ -64,6 +64,7 @@ done < "$single_configs"
 
 # Compare with DataCopyGenerate
 { time ./scripts/evaluation/run_cpu_runner.sh "$daphne_dir" > "./scripts/outputs/packed.8192out" ; } 2>> "./scripts/outputs/packed.8192out" 
+{ time ./scripts/evaluation/run_cpu_runner_vec.sh "$daphne_dir" > "./scripts/outputs/vec_packed.8192out" ; } 2>> "./scripts/outputs/vec_packed.8192out" 
 "$daphne_dir"/bin/daphne --mlir-codegen  --matmul-fixed-tile-sizes=4,8,256,64 ./scripts/matmul/matmul8192_single.daph > "./scripts/outputs/tiled.8192out"
 "$daphne_dir"/bin/daphne ./scripts/matmul/matmul8192_single.daph > "./scripts/outputs/kernel.8192out"
 

@@ -1,0 +1,37 @@
+\begin{tikzpicture}[node distance=1cm]
+
+\node (start) [startstop] {MatMulOp};
+%\node (matMulOp) [code, right = of start] {\tiny\Verb|"daphne.matMul"|};
+
+\node (affine) [below = of start] {};
+
+\node (affineReg) [startstop, left = of affine] {Create Affine nested loops};
+\node (affineVec) [startstop, right = of affine] {Create vectorized Affine nested loops};
+%\node (affineCode) [code, right = of affine] {\tiny\Verb|AffineForOp| and \Verb|AffineLoadOp| or \Verb|AffineVectorLoadOp|};
+
+\node (dummy) [below = of affine] {};
+\node (tile) [startstop, left = of dummy] {Apply loop tiling};
+
+\node (invert) [startstop, right = of dummy] {Invert loops};
+
+\node (stop) [startstop, below = of dummy] {Daphne lowering pipeline};
+%\node (affineFor) [code, right = of stop] {\tiny\Verb|affine.for|};
+
+\node (llvm) [startstop, below = of stop] {LLVM};
+
+
+
+\draw [arrow] (start) -- (affineReg);
+\draw [arrow] (start) -- (affineVec);
+\draw [arrow] (affineReg) -- (affine);
+\draw [arrow] (affineVec) -- (affine);
+\draw [arrow] (affine) -- (stop);
+\draw [arrow] (affine) -- (tile);
+\draw [arrow] (tile) -- (stop);
+\draw [arrow] (tile) -- (invert);
+\draw [arrow] (affine) -- (invert);
+\draw [arrow] (invert) -- (stop);
+\draw [arrow] (stop) -- (llvm);
+
+
+\end{tikzpicture}

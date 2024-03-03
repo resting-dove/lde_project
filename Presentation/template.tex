@@ -63,13 +63,7 @@
 
 \usepackage{pgfplots}
 \usepackage{tikz}
-    \pgfplotsset{compat=newest}
-    \usetikzlibrary{plotmarks}
-    \usetikzlibrary{calc}
-    \usetikzlibrary{positioning}
-    \usetikzlibrary{arrows.meta}
-    \usetikzlibrary{matrix}
-    \usepgfplotslibrary{patchplots}
+\input{resources/tikzSetup.tex}
 \usepackage[framemethod=TikZ]{mdframed}
 \usepackage{xstring}
 \usepackage{etoolbox}
@@ -288,7 +282,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title[Large Scale Data Engineering Seminar]{\LARGE Optimizing Code Generation for Matrix Multiplication}
-% \subtitle{in case you want to use a subtitle ...}
+\subtitle{DAPHNE}
 \author[H. Willems]{Henri Willems
 \\ \normalfont %\ttfamily
 henri.willems@campus.tu-berlin.de
@@ -320,45 +314,101 @@ henri.willems@campus.tu-berlin.de
     
 \end{frame}
 
+
+\begin{frame}{Matrix Multiplication Implementation}
+    Matrix Multiplication is Level 3 Basic Linear Algebra Subprogram \cite{dongarra_blas} operation\vs
+
+    Hardware specific hand optimization, e.g. Intel oneMKL BLAS \cite{intelrAccelerateFastMath}\vs
+    
+    Daphne uses BLIS \cite{BLIS1} a ``portable software framework for instantiating high-performance BLAS-like dense linear algebra libraries''\vs
+
+    \pause
+    Alternative: Automatic \emph{Code Generation} using MLIR \cite{mlir}
+    
+\end{frame}
+
+\begin{frame}{Daphne Matrix Multiplication -- Kernel}
+    \input{../Figures/KernelFlow.tikz}
+\end{frame}
+
+\begin{frame}{Daphne Matrix Multiplication -- Code Generation}
+    Project outcomes:
+    \begin{itemize}
+\item    Enabled Matrix Multiplication for \Verb|ui64| value type\vs
+
+    \item Extended code generation to \Verb|f32| and \Verb|si64|, \Verb|ui64| value types\vs
+
+    \pause
+    \item Enabled multiple Optimization strategies
+    \end{itemize}
+    \vs 
+
+    \fullcite{udaybondhugulaUsingMLIRHighPerformance2020}\vs
+\end{frame}
+
 \begin{frame}{Matrix Multiplication}
-    What is it
-
-    How often is it used
-
-    What is the challenge? I.e. memory or cache or computation bound
+    \centering
+    \includegraphics[width=\textwidth]{../Figures/matMulVecVecInd}
 \end{frame}
 
-\begin{frame}{BLAS}
-    What is it
+\begin{frame}{Matrix Multiplication -- Inverted Loops}
+    \centering
+    \includegraphics[width=\textwidth]{../Figures/matMulInvertedLoops}
 \end{frame}
 
-\begin{frame}{Code Generation}
-    What is it and why
-
-    When is it preferrable to BLAS or not? (combine with prev slide)
+\begin{frame}{Matrix Multiplication -- Tiles and Vectors}
+    \centering
+    \includegraphics[width=\textwidth]{../Figures/matMulBond}
 \end{frame}
 
-\begin{frame}{MLIR Code rewriting}
-    Lower code from Daphne dialect to LLVM through affine loops
-
-    Maybe show syntax or maybe not
-
-    Effect: Enabled matmuls on these additional value types
+\begin{frame}{Daphne Matrix Multiplication -- Code Generation}
+    \input{../Figures/CodeGenFlow.tikz}
 \end{frame}
 
 \begin{frame}{Optimizations enabled}
-    Tiling
-        effect
-    Vectorization
-        effect
+    \begin{figure}
+    \begin{minipage}{.45\textwidth}
+        \includegraphics[width=\textwidth]{../Figures/vectorization}
+    \end{minipage}
+    \begin{minipage}{.45\textwidth}
+        \includegraphics[width=\textwidth]{../Figures/tilingStrats}
+    \end{minipage}
+    \caption*{Execution times of dense $2048\times2048$ double precision Matrix multiplication with different 
+    vector instruction sizes (left) and tiling strategies (right) enabled.}
+\end{figure}
 \end{frame}
 
-\begin{frame}{Optimizations enabled}
-    Combined effect
+\begin{frame}{Optimizations enabled -- Tiling and Vectorization}
+    \begin{figure}
+    \centering
+    \includegraphics[height=.6\textheight]{../Figures/combinedVecTiling}
+    \caption*{Execution times of dense $2048\times2048$ double precision Matrix multiplication with different optimizations.}
+    \end{figure}
 \end{frame}
 
-\begin{frame}{Further improvements}
-    Packing effect
+\begin{frame}{Scaling behaviour}
+    \begin{figure}
+\centering
+    \includegraphics[height=.6\textheight]{../Figures/varSizesSubset}
+    \caption*{Execution times of dense double precision Matrix multiplications.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Single precision Matrix Multiplication}
+    \begin{figure}
+    \centering
+    \includegraphics[height=.6\textheight]{../Figures/singleVsDouble}
+    \caption*{Execution times of $2048\times2048$ dense single and double precision Matrix multiplications.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Further improvement -- Packing}
+    \begin{figure}
+    \centering
+    \includegraphics[height=.6\textheight]{../Figures/packing}
+    \caption*{Effect of packing, enabled through \Verb|affineDataCopyGeneratePass|, on $8192\times8192$ single precision Matrix 
+    multiplication executed with \Verb|mlir-cpu-runner|.}
+    \end{figure}
 \end{frame}
 
 \begin{frame}[allowframebreaks,noframenumbering,plain]{Bibliography}
@@ -370,8 +420,51 @@ henri.willems@campus.tu-berlin.de
     {\centering\usebeamerfont{title}\usebeamercolor[fg]{title}\insertauthor}%
 \end{frame}
 
-\begin{frame}[noframenumbering]{Appendix}
-    Further experiments
+\begin{frame}{Appendix}
+    \begin{figure}
+    \centering
+    \includegraphics[height=.6\textheight]{../Figures/matVecSubset}
+    \caption*{Execution times of double precision Matrix Vector product.}
+    \end{figure}
 \end{frame}
 
+
+\begin{frame}[noframenumbering]{Appendix}
+    \begin{figure}
+    \includegraphics[height=.6\textheight]{../Figures/intExecution}
+    \caption*{Exection times of ui64 $2048\times2048$ Matrix multiplication. Note this is not supported by
+    the provided Kernel implementation.}
+\end{figure}
+\end{frame}
+
+\begin{frame}[noframenumbering]{Appendix}
+    \begin{figure}
+    \includegraphics[height=.6\textheight]{../Figures/compilationExecution}
+    \end{figure}
+\end{frame}
+\begin{frame}[noframenumbering]{Appendix}
+    \begin{figure}
+    \includegraphics[height=.6\textheight]{../Figures/execution}
+\end{figure}
+\end{frame}
+\begin{frame}[noframenumbering]{Appendix}
+    \begin{figure}
+    \includegraphics[height=.6\textheight]{../Figures/matVec}
+\end{figure}
+\end{frame}
+\begin{frame}[noframenumbering]{Appendix}
+    \begin{figure}
+    \includegraphics[height=.6\textheight]{../Figures/server}
+\end{figure}
+\end{frame}
+\begin{frame}[noframenumbering]{Appendix}
+    \begin{figure}
+    \includegraphics[height=.6\textheight]{../Figures/serverVsLocal}
+\end{figure}
+\end{frame}
+\begin{frame}[noframenumbering]{Appendix}
+    \begin{figure}
+    \includegraphics[height=.6\textheight]{../Figures/varSizes}
+\end{figure}
+\end{frame}
 \end{document}
