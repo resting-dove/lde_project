@@ -1,0 +1,5 @@
+This reporistory contains code to evaluate the project "Optimizing Code Generation for Matrix Multiplication" for the Large Scale Data Engineering Seminar at TU Berlin in WS23/24. 
+
+To run the evaluations Daphne has to be checked out from https://github.com/resting-dove/daphne. Then to run the evaluation run `./scripts/evaluation/run_benchmark $daphne-dir` from this lde_project's root directory with `$daphne-dir` being the path to the Daphne directory without trailing slash. Some tests being run make use of the `perf stat` command, which has to be set up beforehand.
+
+The final presentation can be generated with lualatex by running `./build_latex.sh` from within the `Presentation` directory.
