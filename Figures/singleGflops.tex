@@ -1,0 +1,11 @@
+\begin{table}
+\centering
+\caption{Computational performance during f32 2048x2048 matrix multiplication.}
+\begin{tabular}{lrrrrrrr}
+\toprule
+{} &  Tile 3 &  sTile + vec256 &  Tile 2 &  Inv. Loops &  Inv. Loops + vec256 &  BLAS &   CPU \\
+\midrule
+GFLOPS/s &     1.1 &             6.3 &     1.1 &         1.5 &                  4.3 &  44.8 & 108.8 \\
+\bottomrule
+\end{tabular}
+\end{table}

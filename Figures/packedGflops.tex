@@ -1,0 +1,11 @@
+\begin{table}
+\centering
+\caption{Computational performance during f32 8192x8192 matrix multiplication.}
+\begin{tabular}{lrrrrr}
+\toprule
+{} &  BLAS &  Tile &  Tile + Packing &  Tile + vec256 + Packing &   CPU \\
+\midrule
+GFLOPS/s &  48.2 &   0.9 &             2.3 &                      7.9 & 108.8 \\
+\bottomrule
+\end{tabular}
+\end{table}

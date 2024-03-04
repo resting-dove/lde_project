@@ -1,0 +1,11 @@
+\begin{table}
+\centering
+\caption{Computational performance during 2048x2048 matrix multiplication.}
+\begin{tabular}{lrrrrrrrr}
+\toprule
+{} &  Accumulator &  naive &  Tile &  Tile + vec256 &  Inv. Loops &  Inv. Loops + vec256 &  BLAS &  CPU \\
+\midrule
+dGFLOPS/s &          0.1 &    0.1 &   1.0 &            3.1 &         1.0 &                  2.1 &  21.4 & 54.4 \\
+\bottomrule
+\end{tabular}
+\end{table}

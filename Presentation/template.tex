@@ -60,7 +60,8 @@
 }
 \usepackage{microtype}
 
-
+\usepackage{booktabs}
+\usepackage{longtable}
 \usepackage{pgfplots}
 \usepackage{tikz}
 \input{resources/tikzSetup.tex}
@@ -442,6 +443,31 @@ henri.willems@campus.tu-berlin.de
     \includegraphics[height=.6\textheight]{../Figures/serverVsLocal}
 \end{figure}
 \end{frame}
+
+\begin{frame}[noframenumbering]{Appendix}
+    \tiny
+    \input{../Figures/gflops}
+    
+    \input{../Figures/singleGflops}
+
+    \input{../Figures/packedGflops}
+\end{frame}
+
+\begin{frame}[noframenumbering]{Appendix}
+    Tiling scheme from \cite{udaybondhugulaUsingMLIRHighPerformance2020} with input $(\text{MR}, \text{NR}, \text{KC}, \text{MC}, \text{NC})$
+    \begin{multline*}
+        (i,j,k) \rightarrow \\
+        (j / \text{NC}, k / \text{KC}, i / \text{MC}, j / \text{NR}, i / \text{MR},\\
+         k \mod \text{KC}, j \mod \text{NR}, i \mod \text{MR})
+    \end{multline*}
+
+    MR$\cdot$NR should fill vector registers
+
+    KC$\cdot$MR tile of $B$ should be in L1
+    
+    MR$\cdot$NR tile of $A$ should be in L2 
+\end{frame}
+
 
 \begin{frame}[noframenumbering]{Appendix}
     \begin{figure}

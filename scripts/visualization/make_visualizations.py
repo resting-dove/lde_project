@@ -478,3 +478,75 @@ plt.yscale("symlog")
 plt.tight_layout()
 plt.savefig("Figures/singleVsDouble.png")
 plt.close()
+
+# GFLOP performance
+medians = {}
+for file_name in ["accumulator.out", "naive.out", "bond_first.out", "bond_first_vec256.out", "invert.out", "invert_vec256.out", "kernel.out"]:
+    with open(os.path.join("./scripts/outputs_machine/", file_name), "rt") as file:
+        times = []
+        lines = file.readlines()
+        for line in lines:
+            if line[:3] == "ms:":
+                times.append(float(line[3:]) / 1000)
+
+        name = file_name.split(".")[0]
+        res = 2048**3 / np.median(times) / 10**9
+        medians[relabel[name]] = res
+medians["CPU"] = 54.4
+df = pd.DataFrame(medians, index=["dGFLOPS/s"])
+caption = "Computational performance during 2048x2048 matrix multiplication."
+df.to_latex("Figures/gflops.tex", float_format="%.1f", caption=caption)
+
+# single GFLOP performance
+medians = {}
+for file_name in ["bond_sgemm.singleout", "bond_sgemm_vec256.singleout", "bond_tile.singleout", "invert.singleout", "invert_vec256.singleout", "kernel.singleout"]:
+    with open(os.path.join("./scripts/outputs_machine/", file_name), "rt") as file:
+        times = []
+        lines = file.readlines()
+        for line in lines:
+            if line[:3] == "ms:":
+                times.append(float(line[3:]) / 1000)
+
+        name = file_name.split(".")[0]
+        res = 2048**3 / np.median(times) / 10**9
+        medians[relabel[name]] = res
+medians["CPU"] = 108.8
+df = pd.DataFrame(medians, index=["GFLOPS/s"])
+caption = "Computational performance during f32 2048x2048 matrix multiplication."
+df.to_latex("Figures/singleGflops.tex", float_format="%.1f", caption=caption)
+
+# packed GFLOP performance
+times = {}
+for file_name in ["kernel.8192out", "tiled.8192out"]:
+    with open(os.path.join("./scripts/outputs/", file_name), "rt") as file:
+        lines = file.readlines()
+        current_times = {8192: []}
+        current_size = 8192
+        for line in lines:
+            if line[:3] == "ms:":
+                current_times[current_size].append(float(line[3:]) / 1000)
+            elif line[:3] == "sum":
+                pass
+        name = file_name.split(".")[0]
+        times[relabel[name]] = {k: 8192**3 / np.median(v) / 10**9 for k,v in current_times.items()}
+with open(os.path.join("./scripts/outputs/", "packed.8192out"), "rt") as file:
+    lines = file.readlines()
+    for line in lines:
+        if line[:4] == "real":
+            minutes = int(re.sub("m", "", re.findall("[0-9]*m", line)[0]))
+            seconds = float(re.sub(",", ".", re.sub("s", "", re.findall("[0-9,]*s", line)[0])))
+            times["Tile + Packing"] = {8192: 8192**3 / (minutes * 60 + seconds) / 10**9}
+            break
+with open(os.path.join("./scripts/outputs/", "vec_packed.8192out"), "rt") as file:
+    lines = file.readlines()
+    for line in lines:
+        if line[:4] == "real":
+            minutes = int(re.sub("m", "", re.findall("[0-9]*m", line)[0]))
+            seconds = float(re.sub(",", ".", re.sub("s", "", re.findall("[0-9,]*s", line)[0])))
+            times["Tile + vec256 + Packing"] = {8192: 8192**3 / (minutes * 60 + seconds) / 10**9}
+            break
+times["CPU"] = 108.8
+df = pd.DataFrame(times)
+df.rename({8192: "GFLOPS/s"}, inplace=True)
+caption = "Computational performance during f32 8192x8192 matrix multiplication."
+df.to_latex("Figures/packedGflops.tex", float_format="%.1f", caption=caption)
